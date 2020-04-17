@@ -3,10 +3,55 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="shortcut icon" href="{{asset('img/logo_blanc.png')}}">
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container">
+            <nav class="d-flex justify-content-between">
+                <div>
+                    <a href='{{ path('home')}}'>Accueil</a>
+                    <span> | <span>
+                    <a href='{{ path('produit_new')}}'>Ajouter un produit</a>
+                    <span> | <span>
+                       <a href='{{ path('contenu_panier')}}'>Mon panier</a>
+                </div>
+                {% if app.user is not null %}
+                           
+                    {# <div>
+                        <a href="{{ path('mon_compte', {'id': app.user.id} ) }}">Mon Compte</a>
+                        <span> | <span>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('seeUser') }}">User</a>
+                            <span> | <span>
+                        {% endif %}
+                        {% if is_granted('ROLE_AUTHEUR') %}
+                            <a href="{{ path('article_new') }}">Crée un article</a>
+                            <span> | <span>
+                        {% endif %}
+                    
+                        <a href="{{ path('app_logout') }}">Deconnection</a>
+                    </div> #}
+                {% else %}
+                    <div>
+                        <a href="{{ path('app_login') }}">Connexion</a>
+                        <span>/<span>
+                        <a href="{{ path('app_register') }}">Inscription</a>
+                    </div>
+                {% endif %}
+
+            </nav>
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    <p class="alert alert-{{ type }}">{{ message }}<p>
+                {% endfor %}
+            {% endfor %}
+
+            {% block body %}{% endblock %}
+
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
+

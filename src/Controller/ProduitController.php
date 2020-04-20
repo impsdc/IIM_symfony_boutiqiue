@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 //to upload product in basket
 use App\Entity\ContenuPanier;
 use App\Repository\ContenuPanierRepository;
@@ -86,35 +87,51 @@ class ProduitController extends AbstractController
     /**
      * @Route("/produit/{id}", name="produit_show", methods={"GET", "POST"})
      */
-    public function show(Produit $produit, Request $request, Panier $panier): Response
+    public function show(Produit $produit, Request $request, $id): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
+
         $contenuPanier = new ContenuPanier();
         $form = $this->createForm(ContenuPanierFormType::class, $contenuPanier);
         $form->handleRequest($request);
-        $produitId = $produit->getId();
-        $date = new DateTime('now');
+        $contenuPanier->setProduit($produit);
+        $contenuPanier->setDatetime( new DateTime('now'));
         
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+         
 
-            $contenuPanier->setDateTime($date);
-            $contenuPanier->addProduit($produit);
-            if($produit->getStock() < $contenuPanier->getQuantity()){
+            if($produit->getStock() > $contenuPanier->getQuantity()){ // check if quantity wanted is available
+
+                $oldContenuPanier = $entityManager->getRepository(ContenuPanier::class)->findOneBy([
+                    "produit" => $id
+                ]);
+
+                if($oldContenuPanier) { //check if he already has added this produit
+                    //if yes add up the quantity
+                    $quantityIni = $oldContenuPanier->getQuantity();
+                    $newQuantity = $quantityIni + $contenuPanier->getQuantity();
+                    $contenuPanier->setQuantity($newQuantity);
+                    
+                    //remove the older product
+                    $entityManager->remove($oldContenuPanier);
+
+                    $entityManager->persist($contenuPanier);
+                    $entityManager->flush();
+                    $this->addFlash("success", "La quantité désiré a été mise a jour");
+                }
+                else{
+                     //if not just submit
+                    $entityManager->persist($contenuPanier);
+                    $entityManager->flush();
+                    $this->addFlash("success", "produit ajoué au panier");
+                }
+            }else{
                 $this->addFlash("danger", "la quantity demandé est pas disponible");
             }
-            else{
-
-                $entityManager->persist($contenuPanier);
-                $entityManager->flush();
-                $this->addFlash("success", "produit ajoué au panier");
-            }
-        
             return $this->redirectToRoute("produit_show", [
-                "id" => $produitId
+                "id" => $id
             ]);
         }
-
         return $this->render('produit/show.html.twig', [
             'produit' => $produit,
             'form' => $form->createView(),
@@ -132,7 +149,7 @@ class ProduitController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('produit_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('produit/edit.html.twig', [
@@ -152,6 +169,6 @@ class ProduitController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('produit_index');
+        return $this->redirectToRoute('home');
     }
 }

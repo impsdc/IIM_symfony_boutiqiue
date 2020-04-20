@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+//for constraints
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
@@ -20,21 +22,40 @@ class Produit
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
+     *  @Assert\Length(
+     *      min = 2,
+     *      max = 30,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters",
+     *      allowEmptyString = false
+     * )
      */
     private $Nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\Length(
+     *      min = 2,
+     *      max = 60,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters",
+     *      allowEmptyString = false
+     * )
      */
     private $Description;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
+     * @Assert\NotNull
      */
     private $prix;
 
     /**
      * @ORM\Column(type="float")
+     *  @Assert\Positive
+     * @Assert\NotNull
      */
     private $stock;
 
@@ -44,19 +65,15 @@ class Produit
     private $photo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="produit")
-     */
-    private $contenuPaniers;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ContenuPanier", inversedBy="produit")
+     * @ORM\OneToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="produit")
      */
     private $contenuPanier;
 
     public function __construct()
     {
-        $this->contenuPaniers = new ArrayCollection();
+        $this->contenuPanier = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -126,16 +143,16 @@ class Produit
     /**
      * @return Collection|ContenuPanier[]
      */
-    public function getContenuPaniers(): Collection
+    public function getContenuPanier(): Collection
     {
-        return $this->contenuPaniers;
+        return $this->contenuPanier;
     }
 
     public function addContenuPanier(ContenuPanier $contenuPanier): self
     {
-        if (!$this->contenuPaniers->contains($contenuPanier)) {
-            $this->contenuPaniers[] = $contenuPanier;
-            $contenuPanier->addProduit($this);
+        if (!$this->contenuPanier->contains($contenuPanier)) {
+            $this->contenuPanier[] = $contenuPanier;
+            $contenuPanier->setProduit($this);
         }
 
         return $this;
@@ -143,22 +160,13 @@ class Produit
 
     public function removeContenuPanier(ContenuPanier $contenuPanier): self
     {
-        if ($this->contenuPaniers->contains($contenuPanier)) {
-            $this->contenuPaniers->removeElement($contenuPanier);
-            $contenuPanier->removeProduit($this);
+        if ($this->contenuPanier->contains($contenuPanier)) {
+            $this->contenuPanier->removeElement($contenuPanier);
+            // set the owning side to null (unless already changed)
+            if ($contenuPanier->getProduit() === $this) {
+                $contenuPanier->setProduit(null);
+            }
         }
-
-        return $this;
-    }
-
-    public function getContenuPanier(): ?ContenuPanier
-    {
-        return $this->contenuPanier;
-    }
-
-    public function setContenuPanier(?ContenuPanier $contenuPanier): self
-    {
-        $this->contenuPanier = $contenuPanier;
 
         return $this;
     }

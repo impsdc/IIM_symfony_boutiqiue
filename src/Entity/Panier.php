@@ -19,11 +19,6 @@ class Panier
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="panier")
-     */
-    private $user;
-
-    /**
      * @ORM\Column(type="datetime")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -34,45 +29,25 @@ class Panier
      */
     private $etat;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="paniers")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="panier")
+     */
+    private $contenuPaniers;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->contenuPaniers = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
-    {
-        return $this->user;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-            $user->setPanier($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->user->contains($user)) {
-            $this->user->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getPanier() === $this) {
-                $user->setPanier(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -95,6 +70,49 @@ class Panier
     public function setEtat(bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ContenuPanier[]
+     */
+    public function getContenuPaniers(): Collection
+    {
+        return $this->contenuPaniers;
+    }
+
+    public function addContenuPanier(ContenuPanier $contenuPanier): self
+    {
+        if (!$this->contenuPaniers->contains($contenuPanier)) {
+            $this->contenuPaniers[] = $contenuPanier;
+            $contenuPanier->setPanier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContenuPanier(ContenuPanier $contenuPanier): self
+    {
+        if ($this->contenuPaniers->contains($contenuPanier)) {
+            $this->contenuPaniers->removeElement($contenuPanier);
+            // set the owning side to null (unless already changed)
+            if ($contenuPanier->getPanier() === $this) {
+                $contenuPanier->setPanier(null);
+            }
+        }
 
         return $this;
     }

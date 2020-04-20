@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200417131823 extends AbstractMigration
+final class Version20200420140403 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,9 @@ final class Version20200417131823 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE contenu_panier CHANGE panier_id panier_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE produit CHANGE contenu_panier_id contenu_panier_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE user CHANGE panier_id panier_id INT DEFAULT NULL, CHANGE roles roles JSON NOT NULL');
+        $this->addSql('ALTER TABLE contenu_panier CHANGE panier_id panier_id INT DEFAULT NULL, CHANGE produit_id produit_id INT DEFAULT NULL, CHANGE quantity quantity DOUBLE PRECISION DEFAULT NULL');
+        $this->addSql('ALTER TABLE panier CHANGE user_id user_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE user CHANGE roles roles JSON NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +32,8 @@ final class Version20200417131823 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE contenu_panier CHANGE panier_id panier_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE produit CHANGE contenu_panier_id contenu_panier_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE user CHANGE panier_id panier_id INT DEFAULT NULL, CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
+        $this->addSql('ALTER TABLE contenu_panier CHANGE produit_id produit_id INT DEFAULT NULL, CHANGE panier_id panier_id INT DEFAULT NULL, CHANGE quantity quantity DOUBLE PRECISION DEFAULT \'NULL\'');
+        $this->addSql('ALTER TABLE panier CHANGE user_id user_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE user CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
     }
 }

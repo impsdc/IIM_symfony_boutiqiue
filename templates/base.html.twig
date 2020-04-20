@@ -9,13 +9,17 @@
     </head>
     <body>
         <div class="container">
-            <nav class="d-flex justify-content-between">
+            <nav class="d-flex justify-content-between p-3">
                 <div>
                     <a href='{{ path('home')}}'>Accueil</a>
                     <span> | <span>
                     <a href='{{ path('produit_new')}}'>Ajouter un produit</a>
                     <span> | <span>
-                       <a href='{{ path('contenu_panier')}}'>Mon panier</a>
+                    <a href='{{ path('panier')}}'>Mon panier</a>
+                    <span> | <span>
+                    <a href='{{ path('admin_user')}}'>User</a>
+                    <span> | <span>
+                    <a href='{{ path('admin_user')}}'>Panier non achete</a>
                 </div>
                 {% if app.user is not null %}
                            
@@ -44,7 +48,7 @@
             </nav>
             {% for type, messages in app.flashes %}
                 {% for message in messages %}
-                    <p class="alert alert-{{ type }}">{{ message }}<p>
+                    <p class="my-2 alert alert-{{ type }}">{{ message }}</p>
                 {% endfor %}
             {% endfor %}
 

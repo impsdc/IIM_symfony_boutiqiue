@@ -7,20 +7,31 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Prenom</th>
-                <th scope="col">Roles</th>
+                <th scope="col">Numéro commande</th>
+                <th scope="col">Date de paiment</th>
+                <th scope="col">Contenu</th>
+                <th scope="col">Prix</th>
             </tr>
         </thead>
         <tbody>
             {% for commande in commandes %}
                 <tr>
                 <th>{{commande.id}}</th>
-                <th scope="row">{{commande.date}}</th>
-                <td>{{commande.}}</td>
-                <td>{{commande.roles|join(', ')}}</td>
-                </tr>
+                <th scope="row">{{commande.date|date('Y-m-d H:i:s')}}</th>
+               <th>
+                {% for produit in commande.contenuPaniers %}
+                   | {{produit.produit.nom}} |
+                {% endfor %}
+                </th>
+                 {% set totaleUn = 0 %} 
+                    {% set total = 0 %} 
+                    {% for produit in commande.contenuPaniers %}  
+                        {% set totaleUn = produit.quantity * produit.produit.prix %}
+                        {% set total = total + totaleUn %} 
+                    {% endfor %}
+                   <th>{{total}}€</th>
             {% endfor %}
         </tbody>
     </table>
+    
 {% endblock %}

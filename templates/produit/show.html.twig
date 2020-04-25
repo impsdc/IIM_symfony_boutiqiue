@@ -28,13 +28,15 @@
                 <td>{{ produit.stock }}</td>
             </tr>
             <tr>
-                <th>Photo</th>
-                <td>{{ produit.photo }}</td>
+                 {% if produit.photo is not null %}
+                 <td>photo du produit</td>
+                    <td>
+                        <img style="width:50%;" src="{{ asset('uploads/' ~ produit.photo) }}">
+                    </td>
+                {% endif %} 
             </tr>
         </tbody>
     </table>
-
-
     <a href="{{ path('home') }}">back to list</a>
     {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>

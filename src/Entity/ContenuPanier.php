@@ -102,4 +102,8 @@ class ContenuPanier
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->getProduit();
+    }
 }

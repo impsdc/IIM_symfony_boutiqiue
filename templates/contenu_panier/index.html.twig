@@ -4,6 +4,9 @@
 
 {% block body %}
    <h1>Votre panier</h1>
+   {# {% for curent in curent %}
+        {{curent.etat}}
+   {% endfor %} #}
     <div class='container'>
         {% if paniers is not empty %}
          <div class='d-flex flex-wrap p-5'>
@@ -23,7 +26,7 @@
             {% endfor %}
         </div>
         <div class="w-full d-flex justify-content-center flex-col">
-            <div class="card px-5 text-center" style="width: 18rem;">
+            <div class="card px-5 text-center my-3" style="width: 18rem;">
                 <p class="m-2">Vous avez {{countPanier}} produit</p>
                     {% set totaleUn = 0 %} 
                     {% set total = 0 %} 

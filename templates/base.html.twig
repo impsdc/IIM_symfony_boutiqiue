@@ -12,31 +12,33 @@
             <nav class="d-flex justify-content-between p-3">
                 <div>
                     <a href='{{ path('home')}}'>Accueil</a>
-                    <span> | <span>
-                    <a href='{{ path('produit_new')}}'>Ajouter un produit</a>
+                    
+                    
                     <span> | <span>
                     <a href='{{ path('panier')}}'>Mon panier</a>
                     <span> | <span>
-                    <a href='{{ path('admin_user')}}'>User</a>
+                    
+                  
+                    <a href='{{ path('commande')}}'>Mes commandes</a>
                     <span> | <span>
-                    <a href='{{ path('admin_user')}}'>Panier non achete</a>
+                    <a href="{{ path('compte', {'id': app.user.id} ) }}">Mon Compte</a>
+                   
                 </div>
-                {% if app.user is not null %}
-                           
-                    {# <div>
-                        <a href="{{ path('mon_compte', {'id': app.user.id} ) }}">Mon Compte</a>
-                        <span> | <span>
-                        {% if is_granted('ROLE_ADMIN') %}
+                {% if app.user is not null %}    
+                    <div>
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
                             <a href="{{ path('seeUser') }}">User</a>
+                            <a href="{{ path('commande_nonPayer') }}">Commande en cours</a>
+                            <span> | <span>
+                        {% endif %} 
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href='{{ path('produit_new')}}'>Ajouter un produit</a>
                             <span> | <span>
                         {% endif %}
-                        {% if is_granted('ROLE_AUTHEUR') %}
-                            <a href="{{ path('article_new') }}">Crée un article</a>
-                            <span> | <span>
-                        {% endif %}
+                        
                     
                         <a href="{{ path('app_logout') }}">Deconnection</a>
-                    </div> #}
+                    </div>
                 {% else %}
                     <div>
                         <a href="{{ path('app_login') }}">Connexion</a>

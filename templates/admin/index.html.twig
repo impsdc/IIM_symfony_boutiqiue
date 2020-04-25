@@ -1,20 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Hello PanierController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/psant/Desktop/symphony/renforcement/rendu/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/psant/Desktop/symphony/renforcement/rendu/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+<h1>Commandes non acheté</h1>
+    {% if commandes is not null %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Numéro du panier</th>
+                <th scope="col">Utilisateur</th>
+                <th scope="col">Contenu</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commande in commandes %}
+                <tr>
+                    <th>{{commande.id}}</th>
+                    <th>{{commande.user.nom}}</th>
+                    {% if commande.contenuPaniers|length < 1 %} {# si le panier n'a pas encore de contenu #}
+                        <th>L'utilisateur n'as pas encore ajouté de produit</th>
+                    {% else %}
+                    <th>
+                        {% for produit in commande.contenuPaniers %}
+                            | {{produit.produit.nom}} |
+                        {% endfor %}
+                    </th>
+                {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Il n'y aucune commande en cours</p>
+    {% endif %}
+    
 {% endblock %}

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+
 use App\Entity\Produit;
 use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
@@ -15,10 +17,7 @@ use App\Entity\ContenuPanier;
 use App\Repository\ContenuPanierRepository;
 use App\Form\ContenuPanierFormType;
 
-//to upload product in basket
-use App\Entity\Panier;
 use App\Repository\PanierRepository;
-use App\Form\PanierFormType;
 
 use DateTime;
 
@@ -87,32 +86,38 @@ class ProduitController extends AbstractController
     /**
      * @Route("/produit/{id}", name="produit_show", methods={"GET", "POST"})
      */
-    public function show(Produit $produit, Request $request, $id): Response
+    public function show(Produit $produit, Request $request, $id, PanierRepository $panierRepo): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
 
         $contenuPanier = new ContenuPanier();
         $form = $this->createForm(ContenuPanierFormType::class, $contenuPanier);
         $form->handleRequest($request);
+
         $contenuPanier->setProduit($produit);
         $contenuPanier->setDatetime( new DateTime('now'));
+
+        //target the current Panier
+        $currentPanier = $panierRepo->findOneBy([
+            'user' => $this->getUser(),
+            'etat'   => 0  
+        ]);
+        
+        $contenuPanier->setPanier($currentPanier);
         
         if ($form->isSubmitted() && $form->isValid()) {
-         
-
             if($produit->getStock() > $contenuPanier->getQuantity()){ // check if quantity wanted is available
 
                 $oldContenuPanier = $entityManager->getRepository(ContenuPanier::class)->findOneBy([
                     "produit" => $id
                 ]);
-
-                if($oldContenuPanier) { //check if he already has added this produit
+                if($oldContenuPanier) { //check if he had already add this product 
                     //if yes add up the quantity
                     $quantityIni = $oldContenuPanier->getQuantity();
                     $newQuantity = $quantityIni + $contenuPanier->getQuantity();
                     $contenuPanier->setQuantity($newQuantity);
                     
-                    //remove the older product
+                    //remove the older one
                     $entityManager->remove($oldContenuPanier);
 
                     $entityManager->persist($contenuPanier);

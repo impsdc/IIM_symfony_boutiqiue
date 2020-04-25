@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\Request;
 use DateTime;
 
 use App\Entity\Panier;
@@ -13,36 +13,59 @@ use App\Form\PanierFormType;
 
 use App\Repository\ContenuPanierRepository;
 
-use Symfony\Component\HttpFoundation\Request;
+
 
 class PanierController extends AbstractController
 {
     /**
-     * @Route("/commande", name="commande")
+     * @Route("/commande/{id}", name="commande_edit")
      */
-    public function index(Request $request)
+    public function post(PanierRepository $panierRepo, $id)
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-        $panier = new Panier;
-        $form = $this->createForm(PanierFormType::class, $panier);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $panier->setUser($this->getUser());
-            $panier->setDate(new DateTime('now'));
-            $panier->setEtat(true);
-
-            $entityManager->persist($panier);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('commande');
-
+        $Currentpanier = $panierRepo->findOneBy([
+            'id' => $id
+        ]);
+        if (!$Currentpanier) {
+            $this->addFlash("danger", "il y a eu un erreur");
         }
 
-        $allPaniers = $entityManager->getRepository(ContenuPanierRepository::class)->findAll();
+        $Currentpanier->setDate(new DateTime('now'));
+        $Currentpanier->setEtat(true);
+        $em->flush();
+
+
+        //Reinitalize a current basket 
+        $Newpanier = new Panier;
+        $Newpanier->setUser($this->getUser());
+        $Newpanier->setEtat(false);
+        $em->persist($Newpanier);
+        $em->flush();
+
+        return $this->redirectToRoute('commande');
+
+
+        // target all basket bought
+        $allPaniers = $panierRepo->findBy([
+            'user' => $this->getUser(),
+            'etat' => 1
+        ]);
+        
+    }
+
+    /**
+     *  @Route("/commande/", name="commande")
+     */
+    public function index(PanierRepository $panier){
+        // target all basket bought
+        $allPaniers = $panier->findBy([
+            'user' => $this->getUser(),
+            'etat' => 1
+        ]);
         return $this->render('panier/index.html.twig', [
             'commandes' => $allPaniers,
+            // 'produits' => $contenuPanier
         ]);
     }
 }

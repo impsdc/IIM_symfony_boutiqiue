@@ -2,6 +2,11 @@
 
 namespace App\Controller;
 
+
+use App\Entity\Panier;
+
+use App\Form\UserFormType;
+
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthAuthenticator;
@@ -37,8 +42,15 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             
+            //initialise Currentbasket
+            $panier = new Panier;
 
-            // do anything else you need here, like send an email
+            $panier->setUser($user);
+            $panier->setEtat(false);
+
+            $entityManager->persist($panier);
+            $entityManager->flush();
+
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
@@ -52,4 +64,22 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-}
+
+    /**
+     * @Route("/compte/{id}", name="compte") 
+     */
+    public function editCompte(UserFormType $form, User $user, Request $request){
+        $form = $this->createForm(UserFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+           $this->addFlash("success", "vos infos ont été changé");
+        }
+
+        return $this->render('registration/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+}   

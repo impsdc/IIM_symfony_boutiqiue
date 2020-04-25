@@ -48,7 +48,7 @@ class User implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Panier", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Panier", mappedBy="user", cascade={"remove"})
      */
     private $paniers;
 

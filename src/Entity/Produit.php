@@ -65,7 +65,7 @@ class Produit
     private $photo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="produit")
+     * @ORM\OneToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="produit", cascade={"remove"})
      */
     private $contenuPanier;
 
@@ -174,4 +174,5 @@ class Produit
     {
         return $this->getNom();
     }
+
 }

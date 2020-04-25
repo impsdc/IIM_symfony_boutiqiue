@@ -34,7 +34,7 @@ class ContenuPanier
     private $datetime;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="contenuPanier")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="contenuPanier", cascade={"remove"})
      * @Assert\NotNull
      */
     private $produit;

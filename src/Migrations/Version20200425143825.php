@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200422185905 extends AbstractMigration
+final class Version20200425143825 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -23,7 +23,7 @@ final class Version20200422185905 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE contenu_panier CHANGE panier_id panier_id INT DEFAULT NULL, CHANGE produit_id produit_id INT DEFAULT NULL, CHANGE quantity quantity DOUBLE PRECISION DEFAULT NULL');
-        $this->addSql('ALTER TABLE panier CHANGE user_id user_id INT DEFAULT NULL, CHANGE date date VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE panier CHANGE user_id user_id INT DEFAULT NULL, CHANGE date date DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE user CHANGE roles roles JSON NOT NULL');
     }
 
@@ -33,7 +33,7 @@ final class Version20200422185905 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE contenu_panier CHANGE produit_id produit_id INT DEFAULT NULL, CHANGE panier_id panier_id INT DEFAULT NULL, CHANGE quantity quantity DOUBLE PRECISION DEFAULT \'NULL\'');
-        $this->addSql('ALTER TABLE panier CHANGE user_id user_id INT DEFAULT NULL, CHANGE date date DATETIME NOT NULL');
+        $this->addSql('ALTER TABLE panier CHANGE user_id user_id INT DEFAULT NULL, CHANGE date date DATETIME DEFAULT \'NULL\'');
         $this->addSql('ALTER TABLE user CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
     }
 }

@@ -1,4 +1,7 @@
 security:
+    role_hierarchy: 
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     encoders:
         App\Entity\User:
             algorithm: auto
@@ -34,5 +37,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin/super, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/profile, roles: ROLE_USER }

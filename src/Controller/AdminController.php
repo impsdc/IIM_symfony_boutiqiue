@@ -15,7 +15,7 @@ use App\Repository\ContenuPanierRepository;
 class AdminController extends AbstractController
 {
     /**
-     *  @Route("/commande", name="commande_nonPayer")
+     *  @Route("/super/commande", name="commande_nonPayer")
      */
     public function index(PanierRepository $panier)
     {
@@ -30,7 +30,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/user", name="admin_user")
+     * @Route("/super/user", name="seeUser")
      */
     public function indexUser(UserRepository $userRepo)
     {

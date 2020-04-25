@@ -14,20 +14,14 @@
                     <a href='{{ path('home')}}'>Accueil</a>
                     
                     
-                    <span> | <span>
-                    <a href='{{ path('panier')}}'>Mon panier</a>
-                    <span> | <span>
-                    
                   
-                    <a href='{{ path('commande')}}'>Mes commandes</a>
-                    <span> | <span>
-                    <a href="{{ path('compte', {'id': app.user.id} ) }}">Mon Compte</a>
                    
                 </div>
                 {% if app.user is not null %}    
                     <div>
                         {% if is_granted('ROLE_SUPER_ADMIN') %}
                             <a href="{{ path('seeUser') }}">User</a>
+                             <span> | <span>
                             <a href="{{ path('commande_nonPayer') }}">Commande en cours</a>
                             <span> | <span>
                         {% endif %} 
@@ -36,7 +30,15 @@
                             <span> | <span>
                         {% endif %}
                         
-                    
+                          <span> | <span>
+                            <a href='{{ path('panier')}}'>Mon panier</a>
+                            <span> | <span>
+                            
+                        
+                            <a href='{{ path('commande')}}'>Mes commandes</a>
+                            <span> | <span>
+                            <a href="{{ path('compte', {'id': app.user.id} ) }}">Mon Compte</a>
+                             <span> | <span>
                         <a href="{{ path('app_logout') }}">Deconnection</a>
                     </div>
                 {% else %}

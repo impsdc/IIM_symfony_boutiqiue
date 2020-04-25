@@ -144,7 +144,7 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("produit/{id}/edit", name="produit_edit", methods={"GET","POST"})
+     * @Route("/admin/produit/{id}/edit", name="produit_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Produit $produit): Response
     {
@@ -154,6 +154,7 @@ class ProduitController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash("success", "le produit a été modifier");
             return $this->redirectToRoute('home');
         }
 
@@ -164,16 +165,23 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("produit/{id}", name="produit_delete", methods={"DELETE"})
+     * @Route("/admin/produit/{id}", name="produit_delete")
      */
-    public function delete(Request $request, Produit $produit): Response
+    public function delete(Produit $produit=null)
     {
-        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($produit);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('home');
+       if($produit != null){
+            
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($produit);
+                $entityManager->flush();
+                $this->addFlash("success", "le produit a été supprimer");
+                return $this->redirectToRoute('home');
+            
+       }else{
+            $this->addFlash("danger", "le produit ciblé n'existe pas");
+            return $this->redirectToRoute('home');
+       }
+        
+       
     }
 }

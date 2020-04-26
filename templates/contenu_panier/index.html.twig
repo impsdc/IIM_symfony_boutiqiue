@@ -4,9 +4,7 @@
 
 {% block body %}
    <h1>Votre panier</h1>
-   {# {% for curent in curent %}
-        {{curent.etat}}
-   {% endfor %} #}
+
     <div class='container'>
         {% if paniers is not empty %}
          <div class='d-flex flex-wrap p-5'>
@@ -20,7 +18,8 @@
                         <p class="card-text">{{panier.produit.description}}</p>
                         <p class="card-text">Quantité : {{panier.quantity}}</p>
                         <p class="card-text">{{panier.produit.prix}}€</p>
-                        <a href="{{path('panier_delete', {"id" : panier.produit.id}) }}" class="btn btn-danger">Supprimer</a>
+                        <p class="card-text">{{panier.id}}</p>
+                        <a href="{{path('panier_delete', {"id" : panier.id}) }}" class="btn btn-danger">Supprimer</a>
                     </div>
                 </div>
             {% endfor %}

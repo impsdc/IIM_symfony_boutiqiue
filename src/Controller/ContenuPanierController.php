@@ -6,28 +6,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-use App\Entity\ContenuPanier;
 use App\Repository\ContenuPanierRepository;
 
-use App\Entity\Panier;
+use App\Entity\ContenuPanier;
 use App\Repository\PanierRepository;
 use App\Form\PanierFormType;
 
 class ContenuPanierController extends AbstractController
 {
     /**
-     * @Route("/panier/", name="panier")
+     * @Route("/panier", name="panier")
      */ 
     public function index(PanierRepository $panierRipo, ContenuPanierRepository $contPanier, Request $request)
     {
+        //target current basket
         $currentPanier = $panierRipo->findOneBy([
             'user' => $this->getUser(),
             'etat' => 0
-        ]);
-    
-
-        $contenu =  $contPanier->findBy([
-            'panier' => $currentPanier->getId()
         ]);
 
         $form = $this->createForm(PanierFormType::class);
@@ -36,13 +31,17 @@ class ContenuPanierController extends AbstractController
         if ($form->isSubmitted()) {
             // handle the form in Panier controller
             return $this->redirectToRoute("commande_edit", [
-                'id' => $currentPanier->getId()
+                'id' => $currentPanier->getId() //pass the id of the current basket
             ]);
         }
 
+        //get all the products that match with the current basket
+        $contenu =  $contPanier->findBy([
+            'panier' => $currentPanier->getId()
+        ]);
+
         return $this->render('contenu_panier/index.html.twig', [
             'paniers' => $contenu,
-            "curent" => $currentPanier,
             'countPanier' => count($contenu),
             'form' => $form->createView(),
         ]);
@@ -51,17 +50,30 @@ class ContenuPanierController extends AbstractController
     
 
     /**
-     * @Route("/panier/{id}", name="panier_delete", methods={"DELETE", "POST"})
+     * @Route("/panier/{id}", name="panier_delete")
      */ 
-    public function delete($panier, Request $request, $id)
+    public function delete(ContenuPanier $panier=null, PanierRepository $panierRipo)
     {
-        if ($this->isCsrfTokenValid('delete'.$panier->getId(), $request->request->get('_token'))) {
+        $currentPanier = $panierRipo->findOneBy([
+            'user' => $this->getUser(),
+            'etat' => 0
+        ]);
+
+        if ($panier != null) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($panier);
             $entityManager->flush();
+
+            $this->addFlash("success", "le produit a été retirer de votre panier");
+            return $this->redirectToRoute('panier', [
+                'id' => $currentPanier->getId()
+            ]);
         }
-        return $this->redirectToRoute('panier', [
-            "id" => $panier->getId()
-        ]);
+        else{
+            $this->addFlash("danger", "le produit ciblé dans votre panier n'existe pas");
+            return $this->redirectToRoute('panier',[
+                'id' => $currentPanier->getId()
+            ]);
+        }
     }
 }

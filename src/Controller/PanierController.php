@@ -43,6 +43,8 @@ class PanierController extends AbstractController
         $em->persist($Newpanier);
         $em->flush();
 
+        $this->addFlash("success", "Votre commande a été validé");
+
         return $this->redirectToRoute('commande');
 
 
@@ -51,13 +53,13 @@ class PanierController extends AbstractController
             'user' => $this->getUser(),
             'etat' => 1
         ]);
-        
     }
 
     /**
      *  @Route("/commande/", name="commande")
      */
-    public function index(PanierRepository $panier){
+    public function index(PanierRepository $panier)
+    {
         // target all basket bought
         $allPaniers = $panier->findBy([
             'user' => $this->getUser(),

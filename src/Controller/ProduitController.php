@@ -51,25 +51,26 @@ class ProduitController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-                //le form a été envoyé, on sauvegarde l'image
-                $image = $form->get('photo')->getData();
-                if($image){
-                    
-                    $nomImage = uniqid() . '.' . $image->guessExtension();
-    
-                    try{
-                        $image->move(
-                            $this->getParameter('upload_dir'), 
-                            $nomImage
-                        );
-                    }
-                    catch(FileException $e){
-                        $this->addFlash("danger","Il y a eu une erreur avec votre image"
-                        );
-                        return $this->redirectToRoute('home');
-                    }
-                    $produit->setPhoto($nomImage);
+            //le form a été envoyé, on sauvegarde l'image
+            $image = $form->get('photo')->getData();
+            if ($image) {
+
+                $nomImage = uniqid() . '.' . $image->guessExtension();
+
+                try {
+                    $image->move(
+                        $this->getParameter('upload_dir'),
+                        $nomImage
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash(
+                        "danger",
+                        "Il y a eu une erreur avec votre image"
+                    );
+                    return $this->redirectToRoute('home');
                 }
+                $produit->setPhoto($nomImage);
+            }
             $entityManager->persist($produit);
             $entityManager->flush();
 
@@ -95,42 +96,42 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         $contenuPanier->setProduit($produit);
-        $contenuPanier->setDatetime( new DateTime('now'));
+        $contenuPanier->setDatetime(new DateTime('now'));
 
         //target the current Panier
         $currentPanier = $panierRepo->findOneBy([
             'user' => $this->getUser(),
-            'etat'   => 0  
+            'etat'   => 0
         ]);
-        
+
         $contenuPanier->setPanier($currentPanier);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
-            if($produit->getStock() > $contenuPanier->getQuantity()){ // check if quantity wanted is available
+            if ($produit->getStock() > $contenuPanier->getQuantity()) { // check if quantity wanted is available
 
                 $oldContenuPanier = $entityManager->getRepository(ContenuPanier::class)->findOneBy([
-                    "produit" => $id
+                    "produit" => $id,
+                    "panier" => $currentPanier
                 ]);
-                if($oldContenuPanier) { //check if he had already add this product 
+                if ($oldContenuPanier) { //check if he had already add this product 
                     //if yes add up the quantity
                     $quantityIni = $oldContenuPanier->getQuantity();
                     $newQuantity = $quantityIni + $contenuPanier->getQuantity();
                     $contenuPanier->setQuantity($newQuantity);
-                    
-                    //remove the older one
-                    $entityManager->remove($oldContenuPanier);
+
+                    // //remove the older one
+                    // $entityManager->remove($oldContenuPanier);
 
                     $entityManager->persist($contenuPanier);
                     $entityManager->flush();
                     $this->addFlash("success", "La quantité désiré a été mise a jour");
-                }
-                else{
-                     //if not just submit
+                } else {
+                    //if not just submit
                     $entityManager->persist($contenuPanier);
                     $entityManager->flush();
                     $this->addFlash("success", "produit ajoué au panier");
                 }
-            }else{
+            } else {
                 $this->addFlash("danger", "la quantity demandé est pas disponible");
             }
             return $this->redirectToRoute("produit_show", [
@@ -167,21 +168,17 @@ class ProduitController extends AbstractController
     /**
      * @Route("/admin/produit/{id}", name="produit_delete")
      */
-    public function delete(Produit $produit=null)
+    public function delete(Produit $produit = null)
     {
-       if($produit != null){
-            
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($produit);
-                $entityManager->flush();
-                $this->addFlash("success", "le produit a été supprimer");
-                return $this->redirectToRoute('home');
-            
-       }else{
+        if ($produit != null) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($produit);
+            $entityManager->flush();
+            $this->addFlash("success", "le produit a été supprimer");
+            return $this->redirectToRoute('home');
+        } else {
             $this->addFlash("danger", "le produit ciblé n'existe pas");
             return $this->redirectToRoute('home');
-       }
-        
-       
+        }
     }
 }

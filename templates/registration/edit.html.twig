@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Compte{% endblock %}
+{% block title %}{{registration.edit.account}}{% endblock %}
 
 {% block body %}
-<h1>Changer vos informations personnelles</h1>
+<h1>{{registration.edit.title}}</h1>
 {{ form_start(form) }}                  
 {{ form_end(form) }}
 {% endblock %}

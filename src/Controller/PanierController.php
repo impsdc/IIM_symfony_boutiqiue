@@ -28,7 +28,7 @@ class PanierController extends AbstractController
             'id' => $id
         ]);
         if (!$Currentpanier) {
-            $this->addFlash("danger", "il y a eu un erreur");
+            $this->addFlash("danger", $translator->trans('cart.danger'));
         }
 
         $Currentpanier->setDate(new DateTime('now'));
@@ -43,7 +43,7 @@ class PanierController extends AbstractController
         $em->persist($Newpanier);
         $em->flush();
 
-        $this->addFlash("success", "Votre commande a été validé");
+        $this->addFlash("success", $translator->trans('cart.success'));
 
         return $this->redirectToRoute('commande');
 

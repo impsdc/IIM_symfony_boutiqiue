@@ -41,7 +41,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            
+
             //initialise Currentbasket
             $panier = new Panier;
 
@@ -68,18 +68,19 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/compte/{id}", name="compte") 
      */
-    public function editCompte(UserFormType $form, User $user, Request $request){
+    public function editCompte(UserFormType $form, User $user, Request $request)
+    {
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-           $this->addFlash("success", "vos infos ont été changé");
+            $this->addFlash("success", $translator->trans('registration.flash.success'));
         }
 
         return $this->render('registration/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-}   
+}

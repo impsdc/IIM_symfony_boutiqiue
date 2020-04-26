@@ -14,36 +14,36 @@
         <div class="container">
             <nav class="d-flex justify-content-between p-3">
                 <div>
-                    <a href='{{ path('home')}}'>Accueil</a>   
+                    <a href='{{ path('home')}}'>}</a>   
                 </div>
                 {% if app.user is not null %}    
                     <div>
                         {% if is_granted('ROLE_SUPER_ADMIN') %}
-                            <a href="{{ path('seeUser') }}">User</a>
+                            <a href="{{ path('seeUser') }}">{{base.user}</a>
                              <span> | <span>
-                            <a href="{{ path('commande_nonPayer') }}">Commande en cours</a>
+                            <a href="{{ path('commande_nonPayer') }}">{{base.currentOrder}</a>
                             <span> | <span>
                         {% endif %} 
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href='{{ path('produit_new')}}'>Ajouter un produit</a>
+                            <a href='{{ path('produit_new')}}'>{{base.addProduct}}</a>
                             <span> | <span>
                         {% endif %}
                         
-                            <a href='{{ path('panier')}}'>Mon panier</a>
+                            <a href='{{ path('panier')}}'>{{base.cart}}</a>
                             <span> | <span>
                             
                         
-                            <a href='{{ path('commande')}}'>Mes commandes</a>
+                            <a href='{{ path('commande')}}'>{{base.orders}}</a>
                             <span> | <span>
-                            <a href="{{ path('compte', {'id': app.user.id} ) }}">Mon Compte</a>
+                            <a href="{{ path('compte', {'id': app.user.id} ) }}">{{base.account}}</a>
                              <span> | <span>
-                        <a href="{{ path('app_logout') }}">Deconnection</a>
+                        <a href="{{ path('app_logout') }}">{{base.logout}}</a>
                     </div>
                 {% else %}
                     <div>
-                        <a href="{{ path('app_login') }}">Connexion</a>
+                        <a href="{{ path('app_login') }}">{{base.login}}</a>
                         <span>/<span>
-                        <a href="{{ path('app_register') }}">Inscription</a>
+                        <a href="{{ path('app_register') }}">{{base.register}}</a>
                     </div>
                 {% endif %}
 

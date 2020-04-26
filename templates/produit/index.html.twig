@@ -3,18 +3,18 @@
 {% block title %}Produit index{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+    <h1>{{product.index.title}}</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Stock</th>
-                <th>Photo</th>
-                <th>actions</th>
+                <th>{{product.index.name}}</th>
+                <th>{{product.index.description}}</th>
+                <th>{{product.index.price}}</th>
+                <th>{{product.index.stock}}</th>
+                <th>{{product.index.photo}}</th>
+                <th>{{product.index.actions}}</th>
             </tr>
         </thead>
         <tbody>
@@ -31,16 +31,16 @@
                     </td>
                 {% endif %} 
                 <td>
-                    <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('produit_show', {'id': produit.id}) }}">{{product.index.show}}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">{{product.index.noProduct}}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('produit_new') }}">Create new</a>
+    <a href="{{ path('produit_new') }}">{{product.index.createProduct}}</a>
 {% endblock %}

@@ -3,14 +3,14 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-<h1>Liste des Utilisateurs</h1>
+<h1>{{admin.userList.title}}</h1>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">id</th>
-      <th scope="col">Nom</th>
-      <th scope="col">Prenom</th>
-      <th scope="col">Roles</th>
+      <th scope="col">{{admin.userList.colLName}}/th>
+      <th scope="col">{{admin.userList.colFName}}</th>
+      <th scope="col">{{admin.userList.colRoles}}</th>
     </tr>
   </thead>
   <tbody>

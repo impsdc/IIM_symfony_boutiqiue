@@ -65,7 +65,7 @@ class ProduitController extends AbstractController
                 } catch (FileException $e) {
                     $this->addFlash(
                         "danger",
-                        "Il y a eu une erreur avec votre image"
+                        $translator->trans('product.flashMsg.dangerImg')
                     );
                     return $this->redirectToRoute('home');
                 }
@@ -74,7 +74,7 @@ class ProduitController extends AbstractController
             $entityManager->persist($produit);
             $entityManager->flush();
 
-            $this->addFlash("success", "produit ajoutée");
+            $this->addFlash("success", $translator->trans('product.flashMsg.successAddProd'));
             return $this->redirectToRoute('home');
         }
 
@@ -124,15 +124,15 @@ class ProduitController extends AbstractController
 
                     $entityManager->persist($contenuPanier);
                     $entityManager->flush();
-                    $this->addFlash("success", "La quantité désiré a été mise a jour");
+                    $this->addFlash("success", $translator->trans('product.flashMsg.successQty'));
                 } else {
                     //if not just submit
                     $entityManager->persist($contenuPanier);
                     $entityManager->flush();
-                    $this->addFlash("success", "produit ajoué au panier");
+                    $this->addFlash("success", $translator->trans('product.flashMsg.successAddCart'));
                 }
             } else {
-                $this->addFlash("danger", "la quantity demandé est pas disponible");
+                $this->addFlash("danger", $translator->trans('product.flashMsg.dangerQty'));
             }
             return $this->redirectToRoute("produit_show", [
                 "id" => $id
@@ -155,7 +155,7 @@ class ProduitController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash("success", "le produit a été modifier");
+            $this->addFlash("success", $translator->trans('product.flashMsg.successEdit'));
             return $this->redirectToRoute('home');
         }
 
@@ -174,10 +174,10 @@ class ProduitController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($produit);
             $entityManager->flush();
-            $this->addFlash("success", "le produit a été supprimer");
+            $this->addFlash("success", $translator->trans('product.flashMsg.successDelete'));
             return $this->redirectToRoute('home');
         } else {
-            $this->addFlash("danger", "le produit ciblé n'existe pas");
+            $this->addFlash("danger", $translator->trans('product.flashMsg.dangerDelete'));
             return $this->redirectToRoute('home');
         }
     }

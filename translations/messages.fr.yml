@@ -1,0 +1,100 @@
+admin:
+  title: Commandes non achetées
+  nbCart: Numéro du panier
+  user: Utilisateur
+  content: Contenu
+  noProducts: L'utilisateur n'as pas encore ajouté de produit
+  noOrder: Il n'y aucune commande en cours
+  userList:
+    title: Liste des utilisateurs
+    colLName: Nom
+    colFName: Prenom
+    colRoles: Roles
+
+contentCart:
+  title: Votre panier
+  quantity: Quantité
+  delete: Supprimer
+  cartCount1: Vous avez
+  cartCount1: produit
+  totalCart: Total à payer
+  noProducts: Vous n'avez pas encore ajouteé de produit à votre panier
+  success: Le produit a été retiré de votre panier
+  danger: le produit ciblé dans votre panier n'existe pas
+
+cart:
+  title: Mes commandes
+  nbOrder: Numéro commande
+  paymentDate: Date de paiement
+  content: Contenu
+  price: Prix
+  success: Votre commande a été validée
+  danger: Une erreur est survenue
+
+product:
+  flashMsg:
+    dangerImg: Il y a eu une erreur avec votre image
+    successAddProd: Produit ajouté
+    successQty: La quantité désiré a été mise a jour
+    successAddCart: Produit ajoué au panier
+    dangerQty: La quantité demandée n'est pas disponible
+    successEdit: Le produit a été modifier
+    successDelete: Le produit a été supprimé
+    dangerDelete: Pe produit ciblé n'existe pas
+  index:
+    title: Produit index
+    name: Nom
+    description: Description
+    price: Prix
+    stock: Stock
+    photo: Photo
+    actions: Actions
+    show: Montrer
+    noProduct: Aucun produit trouvé
+    createProduct: Nouveau produit
+  show: 
+    title: Produit
+    name: Nom
+    description: Description
+    price: Prix
+    stock: Stock
+    photo: Photo du produit
+    addToCart: ajout au panier
+    edit: Modifier
+  new: 
+    title: Créer un nouveau produit
+    back: Retour à la liste
+  edit: 
+    title: Edit product
+    back: Retour à la liste
+  delete: 
+    del: Supprimer
+
+registration: 
+  flash: 
+    success: Informations updated
+  register:
+    title: S'enregistrer
+  edit:
+    account: Compte
+    title: Changer vos informations personnelles
+
+login:
+  signIn: Connexion
+  msgSignIn: Merci de vous connecter 
+  email: Adresse email
+  password: Mot de passe
+  logout: Déconnexion
+  loggedAs: Vous etes connecté en tant que
+
+base:
+  home: Accueil
+  user: utilisateur
+  currentOrder: Commande en cours
+  addProduct: Ajouter un produit
+  cart: Mon panier
+  orders: Mes commandes
+  account: Mon Compte
+  logout: Déconnexion
+  login: Connexion
+  register: Inscription

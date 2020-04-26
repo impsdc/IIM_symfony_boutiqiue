@@ -1,0 +1,100 @@
+admin:
+  title: Not bought orders
+  nbCart: Cart number
+  user: User
+  content: Content
+  noProducts: User has not added any product yet
+  noOrder: There is no order in progress
+  userList:
+    title: Users list
+    colLName: Last name
+    colFName: First name
+    colRoles: Roles
+
+contentCart:
+  title: Your cart
+  quantity: Quantity
+  delete: Delete
+  cartCount1: Youy have
+  cartCount1: product
+  totalCart: Total to pay
+  noProducts: You haven't added any product to your cart yet
+  success: The product has been removed from your cart
+  danger: The targeted product in your cart does not exist
+
+cart:
+  title: My orders
+  nbOrder: Order number
+  paymentDate: Payment date
+  content: Content
+  price: Price
+  success: Your order has been validated
+  danger: An error has occured
+
+product:
+  flashMsg:
+    dangerImg: An error has occured with your image
+    successAddProd: Product added
+    successQty: The desired quantity has been updated
+    successAddCart: Product added to cart
+    dangerQty: Quantity not available
+    successEdit: Product successfully edited
+    successDelete: Product has been deleted
+    dangerDelete: Targeted product does not exist
+  index:
+    title: Products index
+    name: Name
+    description: Description
+    price: Price
+    stock: Stock
+    photo: Photo
+    actions: Actions
+    show: Show
+    noProduct: No product found
+    createProduct: New product
+  show: 
+    title: Product
+    name: Name
+    description: Description
+    price: Price
+    stock: Stock
+    photo: Product photo
+    addToCart: Add to cart
+    edit: Edit
+  new: 
+    title: Create a new product
+    back: Back to list
+  edit: 
+    title: Edit product
+    back: Back to list
+  delete: 
+    del: Delete
+
+registration: 
+  flash: 
+    success: Informations updated
+  register:
+    title: Register
+  edit:
+    account: Account
+    title: Edit your personnal informations
+
+login:
+  signIn: Sign in
+  msgSignIn: Please sign in
+  email: Email address
+  password: password
+  logout: Logout
+  loggedAs: You are logged in as
+
+base:
+  home: Home
+  user: User
+  currentOrder: Order in progress
+  addProduct: Add a product
+  cart: My cart
+  orders: My orders
+  account: My account
+  logout: Logout
+  login: Login
+  register: Register

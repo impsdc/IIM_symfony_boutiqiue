@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit{% endblock %}
+{% block title %}{{product.show.title}}{% endblock %}
 
 {% block body %}
-    <h1>Produit</h1>
+    <h1></h1>
 
     <table class="table">
         <tbody>
@@ -12,24 +12,24 @@
                 <td>{{ produit.id }}</td>
             </tr>
             <tr>
-                <th>Nom</th>
+                <th>{{product.show.name}}</th>
                 <td>{{ produit.Nom }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{product.show.description}}</th>
                 <td>{{ produit.Description }}</td>
             </tr>
             <tr>
-                <th>Prix</th>
+                <th>{{product.show.price}}</th>
                 <td>{{ produit.prix }}</td>
             </tr>
             <tr>
-                <th>Stock</th>
+                <th>{{product.show.stock}}</th>
                 <td>{{ produit.stock }}</td>
             </tr>
             <tr>
                  {% if produit.photo is not null %}
-                 <td>photo du produit</td>
+                 <td>{{product.show.photo}}</td>
                     <td>
                         <img style="width:50%;" src="{{ asset('uploads/' ~ produit.photo) }}">
                     </td>
@@ -39,7 +39,7 @@
     </table>
       {% if is_granted('ROLE_ADMIN') %}
         <div class='d-flex align-items-center'>
-            <a href="{{ path('produit_edit', {'id': produit.id}) }}" class="btn btn-primary">edit</a>
+            <a href="{{ path('produit_edit', {'id': produit.id}) }}" class="btn btn-primary">{{product.show.edit}}</a>
             {{ include('produit/_delete_form.html.twig') }}
         </div>
     {% endif %}
@@ -47,7 +47,7 @@
     <a href="{{ path('home') }}">back to list</a>
   
 
-<h2>ajout au panier</h2>
+<h2>{{product.show.addToCart}}</h2>
     {{form(form)}}
 
 {% endblock %}

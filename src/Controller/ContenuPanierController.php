@@ -16,7 +16,7 @@ class ContenuPanierController extends AbstractController
 {
     /**
      * @Route("/panier", name="panier")
-     */ 
+     */
     public function index(PanierRepository $panierRipo, ContenuPanierRepository $contPanier, Request $request)
     {
         //target current basket
@@ -27,7 +27,7 @@ class ContenuPanierController extends AbstractController
 
         $form = $this->createForm(PanierFormType::class);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted()) {
             // handle the form in Panier controller
             return $this->redirectToRoute("commande_edit", [
@@ -46,13 +46,13 @@ class ContenuPanierController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
-    
+
+
 
     /**
      * @Route("/panier/{id}", name="panier_delete")
-     */ 
-    public function delete(ContenuPanier $panier=null, PanierRepository $panierRipo)
+     */
+    public function delete(ContenuPanier $panier = null, PanierRepository $panierRipo)
     {
         $currentPanier = $panierRipo->findOneBy([
             'user' => $this->getUser(),
@@ -64,14 +64,13 @@ class ContenuPanierController extends AbstractController
             $entityManager->remove($panier);
             $entityManager->flush();
 
-            $this->addFlash("success", "le produit a été retirer de votre panier");
+            $this->addFlash("success", $translator->trans('contentCart.success'));
             return $this->redirectToRoute('panier', [
                 'id' => $currentPanier->getId()
             ]);
-        }
-        else{
-            $this->addFlash("danger", "le produit ciblé dans votre panier n'existe pas");
-            return $this->redirectToRoute('panier',[
+        } else {
+            $this->addFlash("danger", $translator->trans('contentCart.danger'));
+            return $this->redirectToRoute('panier', [
                 'id' => $currentPanier->getId()
             ]);
         }

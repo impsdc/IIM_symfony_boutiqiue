@@ -3,14 +3,14 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-<h1>{{admin.userList.title}}</h1>
+<h1>{{"admin.userList.title"|trans}}</h1>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">id</th>
-      <th scope="col">{{admin.userList.colLName}}/th>
-      <th scope="col">{{admin.userList.colFName}}</th>
-      <th scope="col">{{admin.userList.colRoles}}</th>
+      <th scope="col">{{"admin.userList.colLName"|trans}}</th>
+      <th scope="col">{{"admin.userList.colFName"|trans}}</th>
+      <th scope="col">{{"admin.userList.colRoles"|trans}}</th>
     </tr>
   </thead>
   <tbody>

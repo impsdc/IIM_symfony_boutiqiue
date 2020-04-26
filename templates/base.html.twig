@@ -14,36 +14,43 @@
         <div class="container">
             <nav class="d-flex justify-content-between p-3">
                 <div>
-                    <a href='{{ path('home')}}'>}</a>   
+<<<<<<< Updated upstream
+                    <a href='{{ path('home')}}'></a>   
+=======
+                    <a href='{{ path('home')}}'>{{'base.home'|trans}}</a>   
+>>>>>>> Stashed changes
                 </div>
                 {% if app.user is not null %}    
                     <div>
                         {% if is_granted('ROLE_SUPER_ADMIN') %}
-                            <a href="{{ path('seeUser') }}">{{base.user}</a>
+                            <a href="{{ path('seeUser') }}">{{"base.user"|trans}}</a>
                              <span> | <span>
-                            <a href="{{ path('commande_nonPayer') }}">{{base.currentOrder}</a>
+                            <a href="{{ path('commande_nonPayer') }}">{{"base.currentOrder"|trans}}</a>
                             <span> | <span>
                         {% endif %} 
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href='{{ path('produit_new')}}'>{{base.addProduct}}</a>
+<<<<<<< Updated upstream
+                            <a href='{{ path('produit_new')}'>{{base.addProduct}}</a>
+=======
+                            <a href="{{ path('produit_new')}}">{{"base.product"|trans}}</a>
+>>>>>>> Stashed changes
                             <span> | <span>
                         {% endif %}
                         
-                            <a href='{{ path('panier')}}'>{{base.cart}}</a>
+                            <a href='{{ path('panier') }}'>{{"base.cart"|trans}}</a>
                             <span> | <span>
-                            
                         
-                            <a href='{{ path('commande')}}'>{{base.orders}}</a>
+                            <a href='{{ path('commande')}}'>{{"base.orders"|trans}}</a>
                             <span> | <span>
-                            <a href="{{ path('compte', {'id': app.user.id} ) }}">{{base.account}}</a>
+                            <a href="{{ path('compte', {'id': app.user.id} ) }}">{{"base.account"|trans}}</a>
                              <span> | <span>
-                        <a href="{{ path('app_logout') }}">{{base.logout}}</a>
+                        <a href="{{ path('app_logout') }}">{{"base.logout"|trans}}</a>
                     </div>
                 {% else %}
                     <div>
-                        <a href="{{ path('app_login') }}">{{base.login}}</a>
+                        <a href="{{ path('app_login') }}">{{"base.login"|trans}}</a>
                         <span>/<span>
-                        <a href="{{ path('app_register') }}">{{base.register}}</a>
+                        <a href="{{ path('app_register') }}">{{"base.register"|trans}}</a>
                     </div>
                 {% endif %}
 

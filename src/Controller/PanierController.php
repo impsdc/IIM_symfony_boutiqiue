@@ -9,18 +9,19 @@ use DateTime;
 
 use App\Entity\Panier;
 use App\Repository\PanierRepository;
-use App\Form\PanierFormType;
 
-use App\Repository\ContenuPanierRepository;
-
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
+/**
+ * @Route("/{_locale}")
+ */
 class PanierController extends AbstractController
 {
     /**
      * @Route("/commande/{id}", name="commande_edit")
      */
-    public function post(PanierRepository $panierRepo, $id)
+    public function post(PanierRepository $panierRepo, $id,  TranslatorInterface $translator) 
     {
         $em = $this->getDoctrine()->getManager();
 

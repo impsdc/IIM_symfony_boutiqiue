@@ -3,14 +3,14 @@
 {% block title %}Hello PanierController!{% endblock %}
 
 {% block body %}
-<h1>{{admin.title}}</h1>
+<h1>{{"admin.title"|trans}}</h1>
     {% if commandes is not null %}
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">{{admin.nbCart}}</th>
-                <th scope="col">{{admin.user}}</th>
-                <th scope="col">{{admin.content}}</th>
+                <th scope="col">{{"admin.nbCart"|trans}}</th>
+                <th scope="col">{{"admin.user"|trans}}</th>
+                <th scope="col">{{"admin.content"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
                     <th>{{commande.id}}</th>
                     <th>{{commande.user.nom}}</th>
                     {% if commande.contenuPaniers|length < 1 %} {# si le panier n'a pas encore de contenu #}
-                        <th>{{admin.noProducts}}</th>
+                        <th>{{"admin.noProducts"|trans}}</th>
                     {% else %}
                     <th>
                         {% for produit in commande.contenuPaniers %}
@@ -32,7 +32,7 @@
         </tbody>
     </table>
     {% else %}
-        <p>{{admin.noOrder}}</p>
+        <p>{{"admin.noOrder"|trans}}</p>
     {% endif %}
     
 {% endblock %}

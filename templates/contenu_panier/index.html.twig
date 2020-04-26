@@ -3,7 +3,7 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-   <h1>{{contentCart.title}}</h1>
+   <h1>{{"contentCart.title"|trans}}</h1>
 
     <div class='container'>
         {% if paniers is not empty %}
@@ -16,35 +16,35 @@
                     <div class="card-body">
                         <h5 class="card-title">{{panier.produit.nom}}</h5>
                         <p class="card-text">{{panier.produit.description}}</p>
-                        <p class="card-text">{{contentCart.quantity}} : {{panier.quantity}}</p>
+                        <p class="card-text">{{"contentCart.quantity"|trans}} : {{panier.quantity}}</p>
                         <p class="card-text">{{panier.produit.prix}}€</p>
                         <p class="card-text">{{panier.id}}</p>
-                        <a href="{{path('panier_delete', {"id" : panier.id}) }}" class="btn btn-danger">{{contentCart.delete}}</a>
+                        <a href="{{path('panier_delete', {"id" : panier.id}) }}" class="btn btn-danger">{{"contentCart.delete"|trans}}</a>
                     </div>
                 </div>
             {% endfor %}
         </div>
         <div class="w-full d-flex justify-content-center flex-col">
             <div class="card px-5 text-center my-3" style="width: 18rem;">
-                <p class="m-2"> {{contentCart.cartCount1}} {{countPanier}} {{contentCart.cartCount2}}</p>
+                <p class="m-2"> {{"contentCart.cartCount1"|trans}} {{countPanier}} {{"contentCart.cartCount2"|trans}}</p>
                     {% set totaleUn = 0 %} 
                     {% set total = 0 %} 
                     {% for panier in paniers %}  
                         {% set totaleUn = panier.quantity * panier.produit.prix %}
                         {% set total = total + totaleUn %} 
                     {% endfor %}
-                <p class="m-2">{{contentCart.totalCart}} : {{total}}€</p>
+                <p class="m-2">{{"contentCart.totalCart"|trans}} : {{total}}€</p>
 
                 <div class='text-center m-1'>
                 {{ form_start(form) }}
-                    <button class="btn btn-primary text-center">{{ button_label|default('Payer') }}</button>
+                    <button class="btn btn-primary text-center">{{ button_label|default("Buy") }}</button>
                 {{ form_end(form) }}
             
                 </div>
             </div>                
         </div>
         {% else %}
-            <p colspan="7">{{contentCart.noProducts}}</p>
+            <p colspan="7">{{"contentCart.noProducts"|trans}}</p>
         {% endif %}
     </div>
      

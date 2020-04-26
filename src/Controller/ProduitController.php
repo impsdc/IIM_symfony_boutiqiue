@@ -28,10 +28,13 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 //for translation 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @Route("/{_locale}")
+ */
 class ProduitController extends AbstractController
 {
     /**
-     * @Route("/", name="home", methods={"GET"})
+     * @Route("/index", name="home", methods={"GET"})
      */
     public function index(ProduitRepository $produitRepository): Response
     {
@@ -43,7 +46,7 @@ class ProduitController extends AbstractController
     /**
      * @Route("/produit/new", name="produit_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TranslatorInterface $translator): Response
     {
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
@@ -87,7 +90,7 @@ class ProduitController extends AbstractController
     /**
      * @Route("/produit/{id}", name="produit_show", methods={"GET", "POST"})
      */
-    public function show(Produit $produit, Request $request, $id, PanierRepository $panierRepo): Response
+    public function show(Produit $produit, Request $request, $id, PanierRepository $panierRepo,  TranslatorInterface $translator): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -147,7 +150,7 @@ class ProduitController extends AbstractController
     /**
      * @Route("/admin/produit/{id}/edit", name="produit_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Produit $produit): Response
+    public function edit(Request $request, Produit $produit,  TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
@@ -168,7 +171,7 @@ class ProduitController extends AbstractController
     /**
      * @Route("/admin/produit/{id}", name="produit_delete")
      */
-    public function delete(Produit $produit = null)
+    public function delete(Produit $produit = null,  TranslatorInterface $translator)
     {
         if ($produit != null) {
             $entityManager = $this->getDoctrine()->getManager();

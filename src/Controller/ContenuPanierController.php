@@ -12,6 +12,11 @@ use App\Entity\ContenuPanier;
 use App\Repository\PanierRepository;
 use App\Form\PanierFormType;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+/**
+ * @Route("/{_locale}")
+ */
 class ContenuPanierController extends AbstractController
 {
     /**
@@ -52,7 +57,7 @@ class ContenuPanierController extends AbstractController
     /**
      * @Route("/panier/{id}", name="panier_delete")
      */
-    public function delete(ContenuPanier $panier = null, PanierRepository $panierRipo)
+    public function delete(ContenuPanier $panier = null, PanierRepository $panierRipo, TranslatorInterface $translator)
     {
         $currentPanier = $panierRipo->findOneBy([
             'user' => $this->getUser(),

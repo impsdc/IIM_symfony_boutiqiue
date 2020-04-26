@@ -3,20 +3,20 @@
 {% block title %}Hello PanierController!{% endblock %}
 
 {% block body %}
-<h1>{{cart.title}}</h1>
+<h1>{{"cart.title"|trans}}</h1>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">{{cart.nbOrder}}</th>
-                <th scope="col">{{cart.paymentDate}}</th>
-                <th scope="col">{{cart.content}}</th>
-                <th scope="col">{{cart.price}}</th>
+                <th scope="col">{{"cart.nbOrder"|trans}}</th>
+                <th scope="col">{{"cart.paymentDate"|trans}}</th>
+                <th scope="col">{{"cart.content"|trans}}</th>
+                <th scope="col">{{"cart.price"|trans}}</th>
             </tr>
         </thead>
         <tbody>
             {% for commande in commandes %}
                 <tr>
-                <th>{{commande.id}}</th>
+                <th>{{"commande.id"|trans}}</th>
                 <th scope="row">{{commande.date|date('Y-m-d H:i:s')}}</th>
                <th>
                 {% for produit in commande.contenuPaniers %}

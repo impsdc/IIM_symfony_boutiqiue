@@ -4,13 +4,12 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
+
 use App\Repository\UserRepository;
 use App\Repository\PanierRepository;
-use App\Repository\ContenuPanierRepository;
 
 /**
- * @Route("/admin")
+ * @Route("{/_locale}/admin")
  */
 class AdminController extends AbstractController
 {

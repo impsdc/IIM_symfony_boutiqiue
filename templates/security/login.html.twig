@@ -5,19 +5,19 @@
 {% block body %}
 <form method="post">
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger">{{ "error.messageKey"|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     {% if app.user %}
         <div class="mb-3">
-            {{login.loggedAs}} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{{login.logout}}</a>
+            {{"login.loggedAs"|trans}} {{ "app.user.username"|trans }}, <a href="{{ path('app_logout') }}">{{"login.logout"|trans}}</a>
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">{{login.msgSignIn}} :</h1>
-    <label for="inputEmail">{{login.email}}</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">{{login.password}}</label>
+    <h1 class="h3 mb-3 font-weight-normal">{{"login.msgSignIn"|trans}} :</h1>
+    <label for="inputEmail">{{"login.email"|trans}}</label>
+    <input type="email" value="{{ "last_username"|trans }}" name="email" id="inputEmail" class="form-control" required autofocus>
+    <label for="inputPassword">{{"login.password"|trans}}</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
     <input type="hidden" name="_csrf_token"
@@ -36,7 +36,7 @@
     #}
 
     <button class="btn btn-lg btn-primary" type="submit">
-        {{login.signIn}}
+        {{"login.signIn"|trans}}
     </button>
 </form>
 {% endblock %}

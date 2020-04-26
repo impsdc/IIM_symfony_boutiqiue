@@ -3,7 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>{{registration.register.title}}</h1>
+    <h1>{{"registration.register.title"|trans}}</h1>
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.nom) }}
@@ -11,6 +11,6 @@
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword) }}
 
-        <button class="btn">{{registration.register.title}}</button>
+        <button class="btn">{{"registration.register.title"|trans}}</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

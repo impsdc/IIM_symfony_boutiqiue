@@ -16,7 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @Route("/{_locale}")
+ */
 class RegistrationController extends AbstractController
 {
     /**
@@ -68,7 +72,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/compte/{id}", name="compte") 
      */
-    public function editCompte(UserFormType $form, User $user, Request $request)
+    public function editCompte(UserFormType $form, User $user, Request $request, TranslatorInterface $translator)
     {
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);

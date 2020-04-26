@@ -1,3 +1,15 @@
+base:
+  home: Home
+  user: User
+  currentOrder: Order in progress
+  product: Add a product
+  cart: My cart
+  orders: My orders
+  account: My account
+  logout: Logout
+  login: Login
+  register: Register
+
 admin:
   title: Not bought orders
   nbCart: Cart number
@@ -15,8 +27,8 @@ contentCart:
   title: Your cart
   quantity: Quantity
   delete: Delete
-  cartCount1: Youy have
-  cartCount1: product
+  cartCount1: You have
+  cartCount2: product
   totalCart: Total to pay
   noProducts: You haven't added any product to your cart yet
   success: The product has been removed from your cart
@@ -52,7 +64,7 @@ product:
     show: Show
     noProduct: No product found
     createProduct: New product
-  show: 
+  show:
     title: Product
     name: Name
     description: Description
@@ -61,17 +73,17 @@ product:
     photo: Product photo
     addToCart: Add to cart
     edit: Edit
-  new: 
+  new:
     title: Create a new product
     back: Back to list
-  edit: 
+  edit:
     title: Edit product
     back: Back to list
-  delete: 
+  delete:
     del: Delete
 
-registration: 
-  flash: 
+registration:
+  flash:
     success: Informations updated
   register:
     title: Register
@@ -87,14 +99,16 @@ login:
   logout: Logout
   loggedAs: You are logged in as
 
-base:
-  home: Home
-  user: User
-  currentOrder: Order in progress
-  addProduct: Add a product
-  cart: My cart
-  orders: My orders
-  account: My account
-  logout: Logout
-  login: Login
-  register: Register
+error:
+  simple: Oops, there is a error, please try later
+  truc: Hey, What you're doing here ??
+  machin: Oops, page not found
+  bidule: Oops, serveur is confused
+
+nom: Name
+Description: Description
+Prix: Price
+Stock: Stock
+photo: Product's image
+
+Ajouter: Add

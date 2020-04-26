@@ -1,3 +1,15 @@
+base:
+  home: Accueil
+  user: Utilisateur
+  currentOrder: Commande en cours
+  product: Ajouter un produit
+  cart: Mon panier
+  orders: Mes commandes
+  account: Mon Compte
+  logout: Déconnexion
+  login: Connexion
+  register: Inscription
+
 admin:
   title: Commandes non achetées
   nbCart: Numéro du panier
@@ -16,7 +28,7 @@ contentCart:
   quantity: Quantité
   delete: Supprimer
   cartCount1: Vous avez
-  cartCount1: produit
+  cartCount2: produit
   totalCart: Total à payer
   noProducts: Vous n'avez pas encore ajouteé de produit à votre panier
   success: Le produit a été retiré de votre panier
@@ -59,7 +71,7 @@ product:
     price: Prix
     stock: Stock
     photo: Photo du produit
-    addToCart: ajout au panier
+    addToCart: Ajout au panier
     edit: Modifier
   new: 
     title: Créer un nouveau produit
@@ -87,14 +99,16 @@ login:
   logout: Déconnexion
   loggedAs: Vous etes connecté en tant que
 
-base:
-  home: Accueil
-  user: utilisateur
-  currentOrder: Commande en cours
-  addProduct: Ajouter un produit
-  cart: Mon panier
-  orders: Mes commandes
-  account: Mon Compte
-  logout: Déconnexion
-  login: Connexion
-  register: Inscription
+error:
+  simple: Oops, y'a une erreur, réssaye plus tard
+  truc: Mais qu'est-ce que tu fais sur cet page toi là !
+  machin: Oops, page Introvable negrillons
+  bidule: Oops, le serveur bégaye
+
+nom: Nom
+Description: Description
+Prix: Prix
+Stock: Stock
+photo: Photo du produit
+
+Ajouter: Ajouter

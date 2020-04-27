@@ -14,11 +14,7 @@
         <div class="container">
             <nav class="d-flex justify-content-between p-3">
                 <div>
-<<<<<<< Updated upstream
-                    <a href='{{ path('home')}}'></a>   
-=======
                     <a href='{{ path('home')}}'>{{'base.home'|trans}}</a>   
->>>>>>> Stashed changes
                 </div>
                 {% if app.user is not null %}    
                     <div>
@@ -29,11 +25,7 @@
                             <span> | <span>
                         {% endif %} 
                         {% if is_granted('ROLE_ADMIN') %}
-<<<<<<< Updated upstream
-                            <a href='{{ path('produit_new')}'>{{base.addProduct}}</a>
-=======
                             <a href="{{ path('produit_new')}}">{{"base.product"|trans}}</a>
->>>>>>> Stashed changes
                             <span> | <span>
                         {% endif %}
                         
